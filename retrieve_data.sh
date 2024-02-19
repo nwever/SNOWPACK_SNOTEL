@@ -2,10 +2,9 @@
 #   1) Enable debugger in Firefox (F12)
 #   2) Go to: https://wcc.sc.egov.usda.gov/nwcc/site?sitenum=457 and select a download (all sensors, hourly, current water year or historic)
 #   3) After the download starts, check in the debugger under the tab "Network", the POST command. Right click --> copy --> Copy as Curl
-stns="957"
-start_year=2018
+source ./settings.rc
 
-for stn in 957
+for stn in ${sites}
 do
 	if [ ! -d "${stn}" ]; then
 		mkdir ${stn}
