@@ -1,3 +1,4 @@
 sites="957"
+NPSsites="CHMA2"
 start_year=2018
 pathtometeoiotimeseries=/usr/bin			# Where is meteoio_timeseries located?
