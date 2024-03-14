@@ -2,7 +2,7 @@
 function table(input) {
 	# Translate SNOTEL variable names to typical MeteoIO variable names
 	if(input=="Date") {return "DATE"};
-	if(input=="Time") {return "TIME"};	
+	if(input=="Time") {return "TIME"};
 	if(input=="PREC.I-1 (in) ") {return "PSUM"};
 	if(input=="TOBS.I-1 (degC) ") {return "TA"};
 	if(input=="SNWD.I-1 (in) ") {return "HS"};

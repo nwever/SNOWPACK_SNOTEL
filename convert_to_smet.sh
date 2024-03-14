@@ -10,7 +10,6 @@ SiteSettings () {
 		lat=68.1298
 		lon=-149.4782
 		alt=1463
-		echo "aap"
 		;;
 
 	*)
