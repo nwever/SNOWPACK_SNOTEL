@@ -17,3 +17,8 @@ Example SNOWPACK simulation for SNOTEL sites, including data from National Park 
 1. Edit the file `settings.rc`, to define a list of sites (NPSsites), a starting year, and to provide the path to the `meteoio_timeseries` executable.
 2. Execute the bash script `retrieve_NPS_data.sh`
 3. Execute the bash script `convert_NPS_to_smet.sh`
+
+
+## Run SNOWPACK
+1. Go to `./simulations/` folder
+2. Execute: `bash run_snowpack.sh`
