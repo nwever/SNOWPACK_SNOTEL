@@ -25,10 +25,6 @@ do
 	echo "IMPORT_BEFORE = ./io_base.ini" > io.ini
 	echo "[Output]" >> io.ini
 	echo "METEOPATH = ./${site}" >> io.ini
-	echo "[FILTERS]" >> io.ini
-	echo "HS::filter1	= MAX" >> io.ini
-	echo "HS::arg1::soft	= FALSE" >> io.ini
-	echo "HS::arg1::max	= 258" >> io.ini
 	echo "[Input]" >> io.ini
 
 	let i=0

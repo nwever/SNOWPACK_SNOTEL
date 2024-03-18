@@ -59,6 +59,10 @@ function WriteIniFile {
 	echo "957::edit2	= MERGE" >> ${inifile}
 	echo "957::arg2::merge	= CHMA2" >> ${inifile}
 	echo "957::arg2::merge_strategy = FULL_MERGE" >> ${inifile}
+        echo "[FILTERS]" >> ${inifile}
+        echo "HS::filter10       = MAX" >> ${inifile}
+        echo "HS::arg10::soft    = FALSE" >> ${inifile}
+        echo "HS::arg10::max     = 1.3" >> ${inifile}
 }
 
 stn=957
