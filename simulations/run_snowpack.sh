@@ -54,9 +54,11 @@ function WriteIniFile {
 	echo "[InputEditing]" >> ${inifile}
 	echo "CHMA2::edit1	= KEEP" >> ${inifile}
 	echo "CHMA2::arg1::params = RH" >> ${inifile}
-	echo "957::edit1	= MERGE" >> ${inifile}
-	echo "957::arg1::merge	= CHMA2" >> ${inifile}
-	echo "957::arg1::merge_strategy = FULL_MERGE" >> ${inifile}
+	echo "957::edit1	= EXCLUDE" >> ${inifile}
+	echo "957::arg1::params = PSUM" >> ${inifile}
+	echo "957::edit2	= MERGE" >> ${inifile}
+	echo "957::arg2::merge	= CHMA2" >> ${inifile}
+	echo "957::arg2::merge_strategy = FULL_MERGE" >> ${inifile}
 }
 
 stn=957
