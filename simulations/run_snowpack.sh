@@ -1,3 +1,5 @@
+source ../settings.rc
+
 # First, collect files
 
 # Create required directories
@@ -72,4 +74,4 @@ altitude=$(grep -m1 altitude ${smetfile} | mawk -F= '{print $NF}')
 profiledate=$(awk '{if(/\[DATA\]/) {getline; print $1; exit}}' ${smetfile})
 WriteSnoFile
 WriteIniFile
-${snowpackdir}snowpack -m operational -s ${stn} -c io_${stn}.ini -e NOW
+${pathtosnowpack}snowpack -m operational -s ${stn} -c io_${stn}.ini -e NOW

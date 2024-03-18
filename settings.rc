@@ -1,4 +1,5 @@
 sites="957"
 NPSsites="CHMA2"
 start_year=2018
-pathtometeoiotimeseries=/usr/bin			# Where is meteoio_timeseries located?
+pathtometeoiotimeseries=/usr/bin/		# Where is meteoio_timeseries located?
+pathtosnowpack=/usr/bin/			# Where is snowpack located?
