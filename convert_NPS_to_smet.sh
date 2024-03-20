@@ -34,7 +34,7 @@ do
 	echo "CSV1_ID	= ${siteid}" >> io.ini
 	echo "CSV1_FIELDS = " $(fgrep "station_id" ${site}.csv | awk -F, -f parse_NPS_fields.awk) >> io.ini
 
-	${pathtometeoiotimeseries}/meteoio_timeseries -c io.ini -b 2018-10-01 -e NOW
+	${pathtometeoiotimeseries}/meteoio_timeseries -c io.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
 
 	rm io.ini
 done

@@ -81,7 +81,12 @@ profiledate=$(awk '{if(/\[DATA\]/) {getline; print $1; exit}}' ${smetfile})
 WriteSnoFile
 WriteIniFile
 
-for yr_s in $(seq 2018 2023)
+# Generate processed meteo
+${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
+mv ./output/957.smet ./output/957_forcing.smet
+
+# Run SNOWPACK year-by-year
+for yr_s in $(seq ${start_year} ${end_year})
 do
 	let yr_e=${yr_s}+1
 	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00
