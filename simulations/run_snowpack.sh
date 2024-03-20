@@ -80,4 +80,9 @@ altitude=$(grep -m1 altitude ${smetfile} | mawk -F= '{print $NF}')
 profiledate=$(awk '{if(/\[DATA\]/) {getline; print $1; exit}}' ${smetfile})
 WriteSnoFile
 WriteIniFile
-${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -e NOW
+
+for yr_s in $(seq 2018 2023)
+do
+	let yr_e=${yr_s}+1
+	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00
+done
