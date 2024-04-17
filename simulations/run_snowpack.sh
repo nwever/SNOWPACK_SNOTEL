@@ -59,10 +59,10 @@ function WriteIniFile {
 	echo "957::edit2	= MERGE" >> ${inifile}
 	echo "957::arg2::merge	= CHMA2" >> ${inifile}
 	echo "957::arg2::merge_strategy = FULL_MERGE" >> ${inifile}
-        echo "[FILTERS]" >> ${inifile}
-        echo "HS::filter10       = MAX" >> ${inifile}
-        echo "HS::arg10::soft    = FALSE" >> ${inifile}
-        echo "HS::arg10::max     = 1.3" >> ${inifile}
+	echo "[FILTERS]" >> ${inifile}
+	echo "HS::filter10       = MAX" >> ${inifile}
+	echo "HS::arg10::soft    = FALSE" >> ${inifile}
+	echo "HS::arg10::max     = 1.3" >> ${inifile}
 }
 
 stn=957
@@ -73,11 +73,12 @@ smetfile="../${stn}/${stn}.smet"
 snofile="./input/${stn}.sno"
 inifile="./io_${stn}.ini"
 
-stnname=$(grep -m1 station_name ${smetfile} | mawk -F= '{print $NF}')
-latitude=$(grep -m1 latitude ${smetfile} | mawk -F= '{print $NF}')
-longitude=$(grep -m1 longitude ${smetfile} | mawk -F= '{print $NF}')
-altitude=$(grep -m1 altitude ${smetfile} | mawk -F= '{print $NF}')
+stnname=$(grep -m1 station_name ${smetfile} | awk -F= '{print $NF}')
+latitude=$(grep -m1 latitude ${smetfile} | awk -F= '{print $NF}')
+longitude=$(grep -m1 longitude ${smetfile} | awk -F= '{print $NF}')
+altitude=$(grep -m1 altitude ${smetfile} | awk -F= '{print $NF}')
 profiledate=$(awk '{if(/\[DATA\]/) {getline; print $1; exit}}' ${smetfile})
+
 WriteSnoFile
 WriteIniFile
 

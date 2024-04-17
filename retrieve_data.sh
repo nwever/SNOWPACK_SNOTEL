@@ -13,7 +13,7 @@ do
 	# Previous hydrological years (historic)
 	for yr in $(seq ${start_year} $(date +%Y | awk '{print $1-1}'))
 	do
-		current=$(echo ${yr} | mawk '')
+		current=$(echo ${yr} | awk '')
 	
 		curl 'https://wcc.sc.egov.usda.gov/nwcc/view' -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Origin: https://wcc.sc.egov.usda.gov' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Referer: https://wcc.sc.egov.usda.gov/nwcc/site?sitenum='${stn}'' --data-raw 'intervalType=+View+Historic+&report=ALL&timeseries=Hourly&format=copy&sitenum='${stn}'&interval=WATERYEAR&year='${yr}'&month=WY&userEmail=' > ${stn}/${stn}_${yr}.csv
 	done
