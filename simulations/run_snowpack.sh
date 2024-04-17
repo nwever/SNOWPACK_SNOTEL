@@ -23,8 +23,8 @@ function WriteSnoFile {
 	echo "tz = 0" >> ${snofile}
 	echo "ProfileDate = ${profiledate}" >> ${snofile}
 	echo "HS_Last = 0.0" >> ${snofile}
-	echo "SlopeAngle = 0" >> ${snofile}
-	echo "SlopeAzi = 0" >> ${snofile}
+	echo "SlopeAngle = ${SlopeAngle}" >> ${snofile}
+	echo "SlopeAzi = ${SlopeAzi}" >> ${snofile}
 	echo "nSoilLayerData = 6" >> ${snofile}
 	echo "nSnowLayerData = 0" >> ${snofile}
 	echo "SoilAlbedo = 0.2" >> ${snofile}
@@ -47,22 +47,22 @@ function WriteSnoFile {
 
 # Create ini file
 function WriteIniFile {
-	echo "IMPORT_BEFORE	= ./io_base.ini" > ${inifile}
+	echo "IMPORT_BEFORE		= ./io_base.ini" > ${inifile}
 	echo "[INPUT]" >> ${inifile}
-	echo "STATION1		= ${stn}" >> ${inifile}
-	echo "STATION2		= ${stn2}" >> ${inifile}
+	echo "STATION1			= ${stn}" >> ${inifile}
+	echo "STATION2			= ${stn2}" >> ${inifile}
 	echo "[InputEditing]" >> ${inifile}
-	echo "CHMA2::edit1	= KEEP" >> ${inifile}
+	echo "CHMA2::edit1		= KEEP" >> ${inifile}
 	echo "CHMA2::arg1::params = RH" >> ${inifile}
-	echo "957::edit1	= EXCLUDE" >> ${inifile}
+	echo "957::edit1		= EXCLUDE" >> ${inifile}
 	echo "957::arg1::params = PSUM" >> ${inifile}
-	echo "957::edit2	= MERGE" >> ${inifile}
+	echo "957::edit2		= MERGE" >> ${inifile}
 	echo "957::arg2::merge	= CHMA2" >> ${inifile}
 	echo "957::arg2::merge_strategy = FULL_MERGE" >> ${inifile}
 	echo "[FILTERS]" >> ${inifile}
-	echo "HS::filter10       = MAX" >> ${inifile}
-	echo "HS::arg10::soft    = FALSE" >> ${inifile}
-	echo "HS::arg10::max     = 1.3" >> ${inifile}
+	echo "HS::filter10		= MAX" >> ${inifile}
+	echo "HS::arg10::soft	= FALSE" >> ${inifile}
+	echo "HS::arg10::max	= 1.3" >> ${inifile}
 }
 
 stn=957
@@ -70,7 +70,6 @@ stn2=CHMA2
 echo Running SNOWPACK for: ${stn}
 stnid=${stn}
 smetfile="../${stn}/${stn}.smet"
-snofile="./input/${stn}.sno"
 inifile="./io_${stn}.ini"
 
 stnname=$(grep -m1 station_name ${smetfile} | awk -F= '{print $NF}')
@@ -79,7 +78,19 @@ longitude=$(grep -m1 longitude ${smetfile} | awk -F= '{print $NF}')
 altitude=$(grep -m1 altitude ${smetfile} | awk -F= '{print $NF}')
 profiledate=$(awk '{if(/\[DATA\]/) {getline; print $1; exit}}' ${smetfile})
 
+# Flat field
+SlopeAngle=0
+SlopeAzi=0
+snofile="./input/${stn}.sno"
 WriteSnoFile
+# Virtual slopes
+SlopeAngle=38
+for vs in $(seq 1 4)
+do
+	SlopeAzi=$(echo "(${vs}-1)*90" | bc)
+	snofile="./input/${stn}${vs}.sno"
+	WriteSnoFile
+done
 WriteIniFile
 
 # Generate processed meteo
