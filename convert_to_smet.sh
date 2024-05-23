@@ -31,8 +31,10 @@ do
 	for f in ${site}/*csv
 	do
 		let i=${i}+1
+		nrh=$(awk -F, '{if($1=="Site Id") {print NR; exit}}' ${f})
 		echo "STATION${i} = ${f}" >> io.ini
 		echo "POSITION${i}	= latlon ${lat} ${lon} ${alt}" >> io.ini
+		echo "CSV${i}_NR_HEADERS = ${nrh}" >> io.ini
 		echo "CSV${i}_NAME	= ${sitename}" >> io.ini
 		echo "CSV${i}_ID	= ${siteid}" >> io.ini
 		echo "CSV${i}_FIELDS	= " $(fgrep "Site Id" ${f} | awk -F, -f parse_fields.awk) >> io.ini
