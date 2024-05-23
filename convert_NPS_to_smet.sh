@@ -23,6 +23,7 @@ SiteSettings () {
 for site in ${NPSsites}
 do
 	SiteSettings ${site}
+	nrh=$(awk -F, '{if($1=="station_id") {print NR; exit}}' ${site}.csv)
 	echo "IMPORT_BEFORE = ./io_NPS_base.ini" > io.ini
 	echo "[Output]" >> io.ini
 	echo "METEOPATH = ./" >> io.ini
@@ -30,6 +31,7 @@ do
 
 	echo "STATION1	= ${site}.csv" >> io.ini
 	echo "POSITION1	= latlon ${lat} ${lon} ${alt}" >> io.ini
+	echo "CSV1_NR_HEADERS = ${nrh}" >> io.ini
 	echo "CSV1_NAME	= ${sitename}" >> io.ini
 	echo "CSV1_ID	= ${siteid}" >> io.ini
 	echo "CSV1_FIELDS = " $(fgrep "station_id" ${site}.csv | awk -F, -f parse_NPS_fields.awk) >> io.ini
