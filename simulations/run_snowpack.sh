@@ -5,6 +5,7 @@ source ../settings.rc
 # Create required directories
 mkdir -p ./input/
 mkdir -p ./output/
+mkdir -p ./log/
 
 # Copy required smet files
 cp ../CHMA2.smet ./input/
@@ -72,6 +73,8 @@ echo Running SNOWPACK for: ${stn}
 stnid=${stn}
 smetfile="../${stn}/${stn}.smet"
 inifile="./io_${stn}.ini"
+logfile="./log/${stn}.log"
+> ${logfile}
 
 stnname=$(grep -m1 station_name ${smetfile} | awk -F= '{print $NF}')
 latitude=$(grep -m1 latitude ${smetfile} | awk -F= '{print $NF}')
@@ -96,12 +99,16 @@ WriteIniFile
 
 # Generate processed meteo
 ${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
+${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}_filt_cutoff.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
 mv ./output/957.smet ./output/957_forcing.smet
+mv ./output/957.smet ./output/957_filt_cutoff_forcing.smet
 
 # Run SNOWPACK year-by-year
 for yr_s in $(seq ${start_year} ${end_year})
 do
 	let yr_e=${yr_s}+1
+	echo "Running: ${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00" >> ${logfile}
 	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00
-	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}_filt_cutoff.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00
+	echo "Running: ${pathtosnowpack}snowpack -s ${stn} -c io_${stn}_filt_cutoff.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00" >> ${logfile}
+	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}_filt_cutoff.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00 >> ${logfile}
 done
