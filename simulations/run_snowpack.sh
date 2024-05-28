@@ -105,5 +105,5 @@ for yr_s in $(seq ${start_year} ${end_year})
 do
 	let yr_e=${yr_s}+1
 	echo "Running: ${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00" >> ${logfile}
-	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00
+	${pathtosnowpack}snowpack -s ${stn} -c io_${stn}.ini -b ${yr_s}-10-01T00:00 -e ${yr_e}-10-01T00:00 | tee -a ${logfile}
 done
