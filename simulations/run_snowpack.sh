@@ -99,8 +99,8 @@ WriteIniFile
 
 # Generate processed meteo
 ${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
-${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}_filt_cutoff.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
 mv ./output/957.smet ./output/957_forcing.smet
+${pathtometeoiotimeseries}/meteoio_timeseries -c io_${stn}_filt_cutoff.ini -b ${start_year}-10-01T00:00 -e ${end_year}-10-01T00:00
 mv ./output/957.smet ./output/957_filt_cutoff_forcing.smet
 
 # Run SNOWPACK year-by-year
