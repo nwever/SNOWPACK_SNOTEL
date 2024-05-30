@@ -1,6 +1,6 @@
 sites="957"
 NPSsites="CHMA2"
-start_year=2018		# Starting on October 1st of $start_year
+start_year=2008		# Starting on October 1st of $start_year
 end_year=2023		# Ending on October 1st of $end_year
-pathtometeoiotimeseries=~/src/slfsnowpack/meteoio/bin/		# Where is meteoio_timeseries located?
-pathtosnowpack=~/src/slfsnowpack/snowpack/bin/			# Where is snowpack located?
+pathtometeoiotimeseries=/usr/bin/		# Where is meteoio_timeseries located?
+pathtosnowpack=/usr/bin/			# Where is snowpack located?
