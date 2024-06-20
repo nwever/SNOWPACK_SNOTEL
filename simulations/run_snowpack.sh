@@ -8,7 +8,6 @@ mkdir -p ./output/
 mkdir -p ./log/
 
 # Copy required smet files
-cp ../CHMA2.smet ./input/
 cp ../957/957.smet ./input/
 cp ../957/957_filt_cutoff.smet ./input/
 
@@ -54,21 +53,21 @@ function WriteIniFile {
 	echo "STATION1			= ${stn}" >> ${inifile}
 	echo "STATION2			= ${stn2}" >> ${inifile}
 	echo "[InputEditing]" >> ${inifile}
-	echo "CHMA2::edit1		= KEEP" >> ${inifile}
-	echo "CHMA2::arg1::params = RH" >> ${inifile}
+	echo "VIR1::edit1		= KEEP" >> ${inifile}
+	echo "VIR1::arg1::params	= ILWR RH" >> ${inifile}
 	echo "957::edit1		= EXCLUDE" >> ${inifile}
-	echo "957::arg1::params = PSUM" >> ${inifile}
+	echo "957::arg1::params		= PSUM" >> ${inifile}
 	echo "957::edit2		= MERGE" >> ${inifile}
-	echo "957::arg2::merge	= CHMA2" >> ${inifile}
+	echo "957::arg2::merge		= VIR1" >> ${inifile}
 	echo "957::arg2::merge_strategy = FULL_MERGE" >> ${inifile}
 	echo "[FILTERS]" >> ${inifile}
 	echo "HS::filter10		= MAX" >> ${inifile}
-	echo "HS::arg10::soft	= FALSE" >> ${inifile}
-	echo "HS::arg10::max	= 1.3" >> ${inifile}
+	echo "HS::arg10::soft		= FALSE" >> ${inifile}
+	echo "HS::arg10::max		= 1.3" >> ${inifile}
 }
 
 stn=957
-stn2=CHMA2
+stn2=VIR1
 echo Running SNOWPACK for: ${stn}
 stnid=${stn}
 smetfile="../${stn}/${stn}.smet"
